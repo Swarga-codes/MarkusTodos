@@ -32,10 +32,7 @@ const addTodo=(t,d)=>{
       <div className="todo_lists">
  {todosList.map(todo=>
   (
-    <>
-    <h1>{todo.title}</h1>
-    <p>{todo.desc}</p>
-    </>
+  <TodoList todo={todo}/>
   ))}
       </div>
     </div>
