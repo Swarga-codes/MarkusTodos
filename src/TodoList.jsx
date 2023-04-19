@@ -4,8 +4,9 @@ function TodoList({todo}) {
    
   return (
     <div className='todos'>
-    <h1>{todo.title}</h1>
+    <h2>{todo.title}</h2>
     <p>{todo.desc}</p>
+  
     </div>
   )
 }

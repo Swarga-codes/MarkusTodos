@@ -9,9 +9,16 @@ const[todosList,setTodosList]=useState([]);
 const[title,setTitle]=useState("");
 const[desc,setDesc]=useState("");
 const addTodo=(t,d)=>{
-
-  setTodosList([...todosList,{title:t,desc:d}])
-
+if(!t || !d){
+  return alert('title or description cannot be empty');
+}
+  setTodosList([...todosList,{title:t,desc:d}]);
+  setTitle('');
+  setDesc('');
+}
+const deleteTodo=(idx)=>{
+  todosList.splice(idx,1);
+  setTodosList([...todosList])
 }
   return (
     <div className="App">
@@ -30,9 +37,12 @@ const addTodo=(t,d)=>{
     <button onClick={()=>addTodo(title,desc)}>Add Todo</button>
     </div>
       <div className="todo_lists">
- {todosList.map(todo=>
+ {todosList.map((todo,idx)=>
   (
-  <TodoList todo={todo}/>
+    <>
+  <TodoList todo={todo} key={idx}/>
+  <button onClick={()=>deleteTodo(idx)}>Delete</button>
+  </>
   ))}
       </div>
     </div>
