@@ -39,10 +39,9 @@ const deleteTodo=(idx)=>{
       <div className="todo_lists">
  {todosList.map((todo,idx)=>
   (
-    <>
-  <TodoList todo={todo} key={idx}/>
-  <button onClick={()=>deleteTodo(idx)}>Delete</button>
-  </>
+ 
+  <TodoList todo={todo} key={idx} deleteTodo={deleteTodo} index={idx}/>
+
   ))}
       </div>
     </div>
