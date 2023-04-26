@@ -30,4 +30,23 @@ router.post('/signup',(req,res)=>{
         
     })
 })
+router.post('/login',(req,res)=>{
+    const{email,password}=req.body
+    if(!email || !password){
+        return res.status(422).json({error:'One or more fields are missing'})
+    }
+    USERS.findOne({email:email})
+    .then((savedUser)=>{
+        if(!savedUser){
+            return res.status(404).json({error:'User not found'})
+        }
+        bcrypt.compare(password,savedUser.password)
+        .then((match)=>{
+            if(!match){
+                return res.status(401).json({error:'Passwords dont match'})
+            }
+            return res.status(200).json({message:'User logged in successfully'})
+        })
+    })
+})
 module.exports=router;
