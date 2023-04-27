@@ -4,6 +4,7 @@ const mongoose=require('mongoose')
 const USERS=mongoose.model('USERS')
 const cors=require('cors')
 const bcrypt=require('bcrypt')
+const jwt=require('jsonwebtoken')
 router.use(cors())
 router.get('/about',(req,res)=>{
     res.send("Hello I am about")
