@@ -4,7 +4,8 @@ const mongoose=require('mongoose')
 const USERS=mongoose.model('USERS')
 const cors=require('cors')
 const bcrypt=require('bcrypt')
-const jwt=require('jsonwebtoken')
+const jwt=require('jsonwebtoken');
+const { SecretKey } = require('../keys');
 router.use(cors())
 router.get('/about',(req,res)=>{
     res.send("Hello I am about")
@@ -46,7 +47,9 @@ router.post('/login',(req,res)=>{
             if(!match){
                 return res.status(401).json({error:'Passwords dont match'})
             }
-            return res.status(200).json({message:'User logged in successfully'})
+            const token=jwt.sign({_id:savedUser.id},SecretKey)
+            const{_id,userName,email}=savedUser
+            return res.status(200).json({token,users:{_id,userName,email}})
         })
     })
 })
