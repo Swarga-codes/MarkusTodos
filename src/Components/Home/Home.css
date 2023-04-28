@@ -4,3 +4,19 @@
    justify-content: center;
    align-items: center;
 }
+.todos_input p{
+    font-size: 16px;
+    padding: 0.5rem 0;
+}
+.todos_input input{
+padding: 0.5rem 0.5rem;
+width: 100%;
+}
+.todos_input button{
+    margin-top: 1rem;
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+}
+.todo_lists{
+    margin-top: 2rem;
+}

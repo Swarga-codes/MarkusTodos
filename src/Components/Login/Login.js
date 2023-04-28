@@ -25,7 +25,7 @@ function Login() {
         else{
             navigator('/');
             localStorage.setItem("jwt",data.token)
-            localStorage.setItem("users",data.users)
+            localStorage.setItem("user",JSON.stringify(data.users))
         }
         
     }
