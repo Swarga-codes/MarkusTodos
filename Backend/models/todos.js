@@ -10,11 +10,11 @@ const TodoSchema=new mongoose.Schema({
         type:String,
         required:true
     },
-    isCompleted:{
-        type:String,
+    status:{
+        type:Boolean,
         required:true
     },
-    postedBy:{
+    creator:{
         type:ObjectId,
         ref:"USERS"
     }

@@ -7,7 +7,9 @@ app.use(express.json())
 app.use(cors())
 mongoose.connect(mongoUrl);
 require('./models/users')
+require('./models/todos')
 app.use(require('./routes/auth'))
+app.use(require('./routes/todo'))
 mongoose.connection.on('connected',()=>{
     console.log('Connected to mongodb...')
 })
