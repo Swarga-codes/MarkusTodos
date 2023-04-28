@@ -6,6 +6,7 @@ const cors=require('cors')
 const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken');
 const { SecretKey } = require('../keys');
+const validator=require('validator')
 router.use(cors())
 router.get('/about',(req,res)=>{
     res.send("Hello I am about")
@@ -13,7 +14,9 @@ router.get('/about',(req,res)=>{
 router.post('/signup',(req,res)=>{
     const{email,userName,password}=req.body;
     if(!email || !userName || !password) return res.status(422).json({error:"One or more fields are missing"});
-    
+    if(!validator.isEmail(email)){
+        return res.status(422).json({error:'Email address is invalid'})
+    }
     USERS.findOne({$or:[{email:email},{userName:userName}]}).then((saved)=>{
         if(saved){
             return res.status(422).json({error:'User already exists'})
