@@ -31,7 +31,7 @@ TODOS.find({creator:req.user._id})
 })
 .catch(err=>console.log(err))
 })
-router.delete('/deletetodos/:todoId',(req,res)=>{
+router.delete('/deletetodos/:todoId',VerifyLogin,(req,res)=>{
    TODOS.findByIdAndDelete({_id:req.params.todoId})
    .then(result=>{
     return res.status(200).json({message:'Todos deleted successfully'})
