@@ -38,4 +38,16 @@ router.delete('/deletetodos/:todoId',VerifyLogin,(req,res)=>{
    })
    .catch(err=>console.log(err))
 })
+router.put('/updatestatus',VerifyLogin,(req,res)=>{
+    const{status,idx}=req.body
+    TODOS.findByIdAndUpdate(req.body.idx,{
+        $set:{status:status}
+    },{
+        new:true
+    })
+    .then(result=>{
+        return res.status(200).json({message:'Status updated successfully'})
+    })
+    .catch(err=>console.log(err))
+})
 module.exports=router
