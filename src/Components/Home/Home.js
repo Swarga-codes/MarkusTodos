@@ -7,14 +7,7 @@ function Home() {
 const[todosList,setTodosList]=useState([]);
 const[title,setTitle]=useState("");
 const[desc,setDesc]=useState("");
-const addTodo=(t,d)=>{
-if(!t || !d){
-  return alert('title or description cannot be empty');
-}
-  setTodosList([...todosList,{title:t,desc:d}]);
-  setTitle('');
-  setDesc('');
-}
+
 const deleteTodo=(idx)=>{
   todosList.splice(idx,1);
   setTodosList([...todosList])
@@ -34,8 +27,20 @@ const fetchAddTodo=async()=>{
     })
   })
   const data=await res.json();
-  console.log(data);
 }
+const getTodos=async()=>{
+  const res=await fetch('http://localhost:8000/mytodos',{
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"Bearer "+localStorage.getItem("jwt")
+    }
+  });
+  const data=await res.json();
+  setTodosList(data);
+}
+useEffect(()=>{
+getTodos();
+},[todosList])
   return (
     <div className='Home'>  
     <h1>Hello, {JSON.parse(localStorage.getItem("user")).userName}</h1>
@@ -51,7 +56,7 @@ const fetchAddTodo=async()=>{
     <input type="text" name='description' value={desc} onChange={(e)=>{setDesc(e.target.value);
   }} placeholder='Enter the description...'/>
     </div>
-    <button onClick={()=>{addTodo(title,desc);
+    <button onClick={()=>{
     fetchAddTodo();
     }}>Add Todo</button>
     </div>
@@ -59,7 +64,7 @@ const fetchAddTodo=async()=>{
  {todosList.map((todo,idx)=>
   (
  
-  <TodoList todo={todo} key={idx} deleteTodo={deleteTodo} index={idx}/>
+  <TodoList todo={todo} key={idx}/>
 
   ))}
       </div>
