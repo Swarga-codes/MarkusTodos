@@ -8,14 +8,14 @@ router.use(cors())
 
 router.post('/createTodo',VerifyLogin,(req,res)=>{
     const{title,description,status}=req.body
-    if(!title || !description || !status){
+    if(!title || !description){
         return res.status(422).json({error:'One or more fields are missing'})
     }
     const todo=new TODOS({
         title,
         description,
         status,
-        creator:req.user._id
+        creator:req.user.id
     })
     todo.save().then(result=>
         {

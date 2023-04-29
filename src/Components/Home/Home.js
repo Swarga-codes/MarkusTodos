@@ -1,8 +1,9 @@
-import React,{useEffect, useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import TodoList from '../TodoList/TodoList';
 import './Home.css'
+import { statusContext } from '../../context';
 function Home() {
-    
+    const{status}=useContext(statusContext)
 const[todosList,setTodosList]=useState([]);
 const[title,setTitle]=useState("");
 const[desc,setDesc]=useState("");
@@ -18,7 +19,23 @@ const deleteTodo=(idx)=>{
   todosList.splice(idx,1);
   setTodosList([...todosList])
 }
+const fetchAddTodo=async()=>{
+  const res=await fetch('http://localhost:8000/createTodo',{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"Bearer "+localStorage.getItem("jwt")
+    },
+    body:JSON.stringify({
+      title,
+      description:desc,
+      status,
 
+    })
+  })
+  const data=await res.json();
+  console.log(data);
+}
   return (
     <div className='Home'>  
     <h1>Hello, {JSON.parse(localStorage.getItem("user")).userName}</h1>
@@ -34,7 +51,9 @@ const deleteTodo=(idx)=>{
     <input type="text" name='description' value={desc} onChange={(e)=>{setDesc(e.target.value);
   }} placeholder='Enter the description...'/>
     </div>
-    <button onClick={()=>addTodo(title,desc)}>Add Todo</button>
+    <button onClick={()=>{addTodo(title,desc);
+    fetchAddTodo();
+    }}>Add Todo</button>
     </div>
       <div className="todo_lists">
  {todosList.map((todo,idx)=>

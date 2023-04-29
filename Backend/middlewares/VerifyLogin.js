@@ -7,7 +7,7 @@ module.exports=(req,res,next)=>{
     if(!authorization){
         return res.status(401).json({error:'User not authorized'})
     }
-const token=authorization.replace("Bearer","")
+const token=authorization.replace("Bearer ","")
 jwt.verify(token,SecretKey,(err,payload)=>{
 if(err){
     return res.status(401).json({error:'Couldnt authorize'})

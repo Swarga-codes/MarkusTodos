@@ -12,7 +12,6 @@ const TodoSchema=new mongoose.Schema({
     },
     status:{
         type:Boolean,
-        required:true
     },
     creator:{
         type:ObjectId,
