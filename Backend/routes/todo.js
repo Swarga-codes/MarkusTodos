@@ -15,7 +15,7 @@ router.post('/createTodo',VerifyLogin,(req,res)=>{
         title,
         description,
         status,
-        creator:req.user.id
+        creator:req.user._id
     })
     todo.save().then(result=>
         {
@@ -24,5 +24,11 @@ router.post('/createTodo',VerifyLogin,(req,res)=>{
         .catch(err=>console.log(err))
 })
 
-
+router.get('/mytodos',VerifyLogin,(req,res)=>{
+TODOS.find({creator:req.user._id})
+.then(result=>{
+    res.status(200).json(result)
+})
+.catch(err=>console.log(err))
+})
 module.exports=router
