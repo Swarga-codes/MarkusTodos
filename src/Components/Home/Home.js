@@ -12,7 +12,7 @@ const deleteTodo=(idx)=>{
   todosList.splice(idx,1);
   setTodosList([...todosList])
 }
-const fetchAddTodo=async()=>{
+const AddTodo=async()=>{
   const res=await fetch('http://localhost:8000/createTodo',{
     method:"POST",
     headers:{
@@ -57,7 +57,9 @@ getTodos();
   }} placeholder='Enter the description...'/>
     </div>
     <button onClick={()=>{
-    fetchAddTodo();
+  AddTodo();
+  setTitle('');
+  setDesc('');
     }}>Add Todo</button>
     </div>
       <div className="todo_lists">
