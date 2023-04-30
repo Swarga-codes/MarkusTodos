@@ -42,8 +42,8 @@ useEffect(()=>{
 getTodos();
 },[todosList])
   return (
-    <div className='Home'>  
-    <h1>Hello, {JSON.parse(localStorage.getItem("user")).userName}</h1>
+    <div className='Home'> 
+    <h1>Hello, {JSON.parse(localStorage.getItem("user"))?.userName}</h1>
 
     <div className='todos_input'>
     <div className='Title'>

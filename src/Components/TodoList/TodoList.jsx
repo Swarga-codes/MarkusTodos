@@ -1,10 +1,11 @@
-import React, { createContext} from 'react'
+import React, { useContext, useState} from 'react'
 import { useRef } from 'react';
 import './TodoList.css'
 import { statusContext } from '../../context';
 function TodoList({todo}) {
    const checkbox=useRef();
-   const{setStatus}=createContext(statusContext)
+   const{status,setStatus}=useContext(statusContext)
+  
    const deleteTodo=async(id)=>{
     const res=await fetch(`http://localhost:8000/deletetodos/${id}`,
     {
@@ -18,11 +19,31 @@ function TodoList({todo}) {
     console.log(data)
     
    }
+   const updateStatus=async()=>{
+    const res=await fetch('http://localhost:8000/updatestatus',{
+      method:'PUT',
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
+      },
+      body:JSON.stringify({
+        status,
+        idx:todo._id,
+      })
+    })
+   }
   return (
     <div className='todos'>
-    <input type="checkbox" ref={checkbox} onClick={()=>setStatus(checkbox.current.checked)}/>
+    <input type="checkbox" ref={checkbox} onClick={()=>{setStatus(checkbox.current.checked)
+     updateStatus();
+    }}/>
     <h2>{todo.title}</h2>
     <p>{todo.description}</p>
+    {!status?
+    <p>Status: Pending</p>
+  :
+<p>Status: Completed</p>
+  }
     <button onClick={()=>deleteTodo(todo._id)}>Delete</button>
     </div>
   )
