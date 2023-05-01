@@ -4,10 +4,8 @@ import Home from './Components/Home/Home';
 import { Routes,Route, useNavigate } from 'react-router-dom';
 import Login from './Components/Login/Login';
 import SignUp from './Components/Signup/Signup'
-import { useContext } from 'react';
-import { statusContext } from './context';
 function App() {
-const[status,setStatus]=useState(false);
+
 const navigator=useNavigate()
 const[token,setToken]=useState('');
 useEffect(()=>{
@@ -21,7 +19,7 @@ useEffect(()=>{
 
 },[token])
   return (
- <statusContext.Provider value={{status,setStatus}}>
+
     <div className="App">
     <Routes>
     <Route exact path='/' element={<Home/>}/>
@@ -29,7 +27,7 @@ useEffect(()=>{
     <Route exact path='/signup' element={<SignUp/>}/>
     </Routes>
     </div>
-    </statusContext.Provider>
+
   
   );
 }

@@ -1,9 +1,8 @@
 import React,{useContext, useEffect, useState} from 'react'
 import TodoList from '../TodoList/TodoList';
 import './Home.css'
-import { statusContext } from '../../context';
+
 function Home() {
-    const{status}=useContext(statusContext)
 const[todosList,setTodosList]=useState([]);
 const[title,setTitle]=useState("");
 const[desc,setDesc]=useState("");
@@ -22,7 +21,7 @@ const AddTodo=async()=>{
     body:JSON.stringify({
       title,
       description:desc,
-      status,
+      status:false,
 
     })
   })

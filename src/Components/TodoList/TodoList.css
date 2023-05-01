@@ -1,3 +1,13 @@
 .todos{
     margin-bottom: 2rem;
+    margin-top: 2rem;
+    border: 2px solid black;
+    border-radius: 16px;
+    padding: 1rem 1rem;
+    width: 30rem;
+}
+@media(max-width:991px){
+.todos{
+    width: auto;
+}
 }

@@ -1,10 +1,10 @@
-import React, { useContext, useState} from 'react'
+import React, { useState} from 'react'
 import { useRef } from 'react';
 import './TodoList.css'
-import { statusContext } from '../../context';
+
 function TodoList({todo}) {
    const checkbox=useRef();
-   const{status,setStatus}=useContext(statusContext)
+   const[status,setStatus]=useState(false);
   
    const deleteTodo=async(id)=>{
     const res=await fetch(`http://localhost:8000/deletetodos/${id}`,
@@ -31,7 +31,10 @@ function TodoList({todo}) {
         idx:todo._id,
       })
     })
+    const data=await res.json()
+    console.log(data)
    }
+ 
   return (
     <div className='todos'>
     <input type="checkbox" ref={checkbox} onClick={()=>{setStatus(checkbox.current.checked)
