@@ -6,11 +6,7 @@ function Home() {
 const[todosList,setTodosList]=useState([]);
 const[title,setTitle]=useState("");
 const[desc,setDesc]=useState("");
-
-const deleteTodo=(idx)=>{
-  todosList.splice(idx,1);
-  setTodosList([...todosList])
-}
+const[search,setSearch]=useState("");
 const AddTodo=async()=>{
   const res=await fetch('http://localhost:8000/createTodo',{
     method:"POST",
@@ -60,9 +56,11 @@ getTodos();
   setTitle('');
   setDesc('');
     }}>Add Todo</button>
+    <br />
+    <input className="search" type="text" placeholder='Search a todo' value={search} onChange={(e)=>setSearch(e.target.value)}/>
     </div>
       <div className="todo_lists">
- {todosList.map((todo,idx)=>
+ {todosList.filter((todo)=>todo.title.toLowerCase().includes(search)||todo.description.toLowerCase().includes(search)).map((todo,idx)=>
   (
  
   <TodoList todo={todo} key={idx}/>
