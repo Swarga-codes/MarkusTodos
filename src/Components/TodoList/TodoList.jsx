@@ -1,11 +1,10 @@
-import React, { useState} from 'react'
-import { useRef } from 'react';
+import React, { useEffect, useState} from 'react'
 import './TodoList.css'
 
 function TodoList({todo}) {
-   const checkbox=useRef();
-   const[status,setStatus]=useState(false);
   
+  //  const[status,setStatus]=useState(false);
+  const[response,setResponse]=useState();
    const deleteTodo=async(id)=>{
     const res=await fetch(`http://localhost:8000/deletetodos/${id}`,
     {
@@ -27,27 +26,36 @@ function TodoList({todo}) {
         "Authorization":"Bearer "+localStorage.getItem("jwt")
       },
       body:JSON.stringify({
-        status,
+        status:!response,
         idx:todo._id,
       })
     })
     const data=await res.json()
     console.log(data)
+    setResponse(data.status)
    }
- 
+ useEffect(()=>{
+ updateStatus();
+ },[])
   return (
     <div className='todos'>
-    <input type="checkbox" ref={checkbox} onClick={()=>{setStatus(checkbox.current.checked)
+    {response===false?
+    <input type="checkbox" value={response} onClick={()=>{
      updateStatus();
     }}/>
+    :
+    <input type="checkbox" value={response} onClick={()=>{
+      updateStatus();
+     }} checked/>
+    }
     <h2>{todo.title}</h2>
     <p>{todo.description}</p>
-    {!status?
+    {response?
     <p>Status: Pending</p>
   :
 <p>Status: Completed</p>
   }
-    <button onClick={()=>deleteTodo(todo._id)}>Delete</button>
+    <button onClick={()=>deleteTodo(todo._id)} className='Delete'>Delete</button>
     </div>
   )
 }

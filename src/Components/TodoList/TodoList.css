@@ -6,6 +6,17 @@
     padding: 1rem 1rem;
     width: 30rem;
 }
+.Delete{
+    margin-top: 1rem;
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+    background-color: #ff3333;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+}
 @media(max-width:991px){
 .todos{
     width: auto;

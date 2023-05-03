@@ -46,7 +46,7 @@ router.put('/updatestatus',VerifyLogin,(req,res)=>{
         new:true
     })
     .then(result=>{
-        return res.status(200).json({message:'Status updated successfully'})
+        return res.status(200).json({status,message:'Status updated successfully'})
     })
     .catch(err=>console.log(err))
 })

@@ -1,12 +1,15 @@
-import React,{useContext, useEffect, useState} from 'react'
+import React,{ useEffect, useState} from 'react'
 import TodoList from '../TodoList/TodoList';
 import './Home.css'
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const navigator=useNavigate();
 const[todosList,setTodosList]=useState([]);
 const[title,setTitle]=useState("");
 const[desc,setDesc]=useState("");
 const[search,setSearch]=useState("");
+const[message,setMessage]=useState("")
 const AddTodo=async()=>{
   const res=await fetch('http://localhost:8000/createTodo',{
     method:"POST",
@@ -22,6 +25,15 @@ const AddTodo=async()=>{
     })
   })
   const data=await res.json();
+  if(data.error){
+    alert(data.error)
+  }
+  else{
+    setMessage(data.message)
+    setTimeout(()=>{
+setMessage('')
+    },5000)
+  }
 }
 const getTodos=async()=>{
   const res=await fetch('http://localhost:8000/mytodos',{
@@ -33,13 +45,27 @@ const getTodos=async()=>{
   const data=await res.json();
   setTodosList(data);
 }
+const logout=()=>{
+  if(window.confirm('Do you really wish to logout?')){
+    localStorage.clear();
+    navigator('/login')
+  }
+}
 useEffect(()=>{
 getTodos();
 },[todosList])
   return (
     <div className='Home'> 
+    <div className="home_header">
+    <div>
     <h1>Hello, {JSON.parse(localStorage.getItem("user"))?.userName}</h1>
-
+    <p>{message}</p>
+    </div>
+    <div className="logout">
+    <button onClick={()=>logout()}>Logout</button>
+    </div>
+    </div>
+   
     <div className='todos_input'>
     <div className='Title'>
     <p>Title</p>
@@ -55,7 +81,7 @@ getTodos();
   AddTodo();
   setTitle('');
   setDesc('');
-    }}>Add Todo</button>
+    }}>+ Add Todo</button>
     <br />
     <input className="search" type="text" placeholder='Search a todo' value={search} onChange={(e)=>setSearch(e.target.value)}/>
     </div>
