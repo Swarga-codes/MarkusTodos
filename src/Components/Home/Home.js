@@ -89,7 +89,7 @@ getTodos();
  {todosList.filter((todo)=>todo.title.toLowerCase().includes(search)||todo.description.toLowerCase().includes(search)).map((todo,idx)=>
   (
  
-  <TodoList todo={todo} key={idx}/>
+  <TodoList todo={todo} key={idx} getTodos={getTodos}/>
 
   ))}
       </div>

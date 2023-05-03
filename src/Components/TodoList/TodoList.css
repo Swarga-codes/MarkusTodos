@@ -17,6 +17,12 @@
     border-radius: 6px;
     outline: none;
 }
+.pending b{
+    color: #ff3333;
+}
+.complete b{
+    color: #1db954;
+}
 @media(max-width:991px){
 .todos{
     width: auto;
