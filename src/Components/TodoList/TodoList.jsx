@@ -1,10 +1,7 @@
-import React, { useEffect, useState} from 'react'
+import React, { useEffect} from 'react'
 import './TodoList.css'
 
 function TodoList({todo,getTodos}) {
-  
-  //  const[status,setStatus]=useState(false);
-  const[response,setResponse]=useState();
    const deleteTodo=async(id)=>{
     const res=await fetch(`http://localhost:8000/deletetodos/${id}`,
     {
@@ -32,19 +29,18 @@ function TodoList({todo,getTodos}) {
     })
     const data=await res.json()
     console.log(data)
-    setResponse(data.status)
    }
  useEffect(()=>{
 getTodos();
  },[todo.status])
   return (
     <div className='todos'>
-    {todo.status===false?
-    <input type="checkbox" value={todo.status} onChange={()=>{
+    {!todo.status?
+    <input type="checkbox" value={todo.status} onClick={()=>{
      updateStatus();
     }}/>
     :
-    <input type="checkbox" value={todo.status} onChange={()=>{
+    <input type="checkbox" value={todo.status} onClick={()=>{
       updateStatus();
      }} checked/>
     }
