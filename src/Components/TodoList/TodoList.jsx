@@ -1,7 +1,8 @@
 import React, { useEffect} from 'react'
 import './TodoList.css'
-
+import Checkbox from '@mui/material/Checkbox';
 function TodoList({todo,getTodos}) {
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
    const deleteTodo=async(id)=>{
     const res=await fetch(`http://localhost:8000/deletetodos/${id}`,
     {
@@ -36,13 +37,13 @@ getTodos();
   return (
     <div className='todos'>
     {!todo.status?
-    <input type="checkbox" value={todo.status} onClick={()=>{
+    <Checkbox {...label} value={todo.status || ''} onClick={()=>{
      updateStatus();
     }}/>
     :
-    <input type="checkbox" value={todo.status} onClick={()=>{
+    <Checkbox {...label} value={todo.status || ''} onClick={()=>{
       updateStatus();
-     }} checked/>
+     }} defaultChecked/>
     }
     <h2>{todo.title}</h2>
     <p>{todo.description}</p>

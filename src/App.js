@@ -15,6 +15,7 @@ useEffect(()=>{
   }
   else{
     setToken(tokenVal)
+    navigator('/')
   }
 
 },[token])
