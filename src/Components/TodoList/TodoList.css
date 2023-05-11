@@ -6,7 +6,7 @@
     padding: 1rem 1rem;
     width: 30rem;
 }
-.Delete{
+.Delete,.edit{
     margin-top: 1rem;
     padding: 0.5rem 0.8rem;
     cursor: pointer;
@@ -16,6 +16,10 @@
     border: none;
     border-radius: 6px;
     outline: none;
+}
+.edit{
+    background-color: #007bff;
+    margin-right: 0.5rem;
 }
 .pending b{
     color: #ff3333;

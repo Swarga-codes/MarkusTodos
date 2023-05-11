@@ -40,7 +40,7 @@ router.delete('/deletetodos/:todoId',VerifyLogin,(req,res)=>{
 })
 router.put('/updatestatus',VerifyLogin,(req,res)=>{
     const{status,idx}=req.body
-    TODOS.findByIdAndUpdate(req.body.idx,{
+    TODOS.findByIdAndUpdate(idx,{
         $set:{status:status}
     },{
         new:true
@@ -48,6 +48,20 @@ router.put('/updatestatus',VerifyLogin,(req,res)=>{
     .then(result=>{
         return res.status(200).json({status,message:'Status updated successfully'})
     })
+    .catch(err=>console.log(err))
+})
+//update the todo content
+router.put('/updatetodo',VerifyLogin,(req,res)=>{
+    const{title,description,idx}=req.body
+    if(!title || !description){
+        return res.status(422).json({error:'One or more fields cannot be empty'})
+    }
+    TODOS.findByIdAndUpdate(idx,{
+        $set:{title:title,description:description}
+    },{
+        new:true
+    })
+    .then(result=> {return res.status(200).json({message:'Todos updated successfully'})})
     .catch(err=>console.log(err))
 })
 module.exports=router

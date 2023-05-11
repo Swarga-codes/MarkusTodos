@@ -3,6 +3,8 @@ import TodoList from "../TodoList/TodoList";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Home() {
   const navigator = useNavigate();
   const [todosList, setTodosList] = useState([]);
@@ -11,6 +13,7 @@ function Home() {
   const [search, setSearch] = useState("");
   const [message, setMessage] = useState("");
   const textFieldStyle = { width: "100%", marginTop: "1rem" };
+  
   const AddTodo = async () => {
     const res = await fetch("http://localhost:8000/createTodo", {
       method: "POST",
@@ -26,12 +29,9 @@ function Home() {
     });
     const data = await res.json();
     if (data.error) {
-      alert(data.error);
+      toast.error(data.error,{theme:"colored"});
     } else {
-      setMessage(data.message);
-      setTimeout(() => {
-        setMessage("");
-      }, 5000);
+      toast.success(data.message,{theme:"colored"}); 
     }
   };
   const getTodos = async () => {
@@ -107,6 +107,7 @@ function Home() {
         >
           + Add Todo
         </button>
+        
         <br />
         <TextField
           id="outlined-basic"
@@ -136,6 +137,7 @@ function Home() {
           <p className="no_todos">No Todos Found!</p>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }

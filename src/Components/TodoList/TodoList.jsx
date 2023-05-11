@@ -1,7 +1,19 @@
-import React, { useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import './TodoList.css'
 import Checkbox from '@mui/material/Checkbox';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Modals from './Modals'
 function TodoList({todo,getTodos}) {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
    const deleteTodo=async(id)=>{
     const res=await fetch(`http://localhost:8000/deletetodos/${id}`,
@@ -14,6 +26,7 @@ function TodoList({todo,getTodos}) {
     });
     const data=await res.json();
     console.log(data)
+    toast.success(data.message,{theme:"colored"})
     
    }
    const updateStatus=async()=>{
@@ -30,6 +43,7 @@ function TodoList({todo,getTodos}) {
     })
     const data=await res.json()
     console.log(data)
+    toast.success(data.message,{theme:"colored"})
    }
  useEffect(()=>{
 getTodos();
@@ -55,8 +69,10 @@ getTodos();
   :
 <p className='complete'>Status: <b>Completed</b></p>
   }
+  <button className='edit' onClick={()=>handleClickOpen()}>Edit</button>
     <button onClick={()=>deleteTodo(todo._id)} className='Delete'>Delete</button>
     </div>
+    <Modals handleClose={handleClose} open={open} todo={todo}/>
     </div>
   )
 }
