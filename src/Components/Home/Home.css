@@ -31,7 +31,7 @@ outline: none;
     margin-top: 2rem;
     border-top: 2px solid black;
     padding: 0 1rem;
-    height: 24rem;
+    height: 28rem;
     overflow-y: scroll;
 }
 .search{
@@ -46,4 +46,12 @@ outline: none;
 .logout button{
 background-color: red;
 margin-top: 0.5rem;
+}
+.no_todos{
+    font-size: 30px;
+}
+@media(max-width:991px){
+    .logout button{
+        margin-left: 4rem;
+    }
 }

@@ -89,7 +89,7 @@ getTodos();
     <TextField id="outlined-basic" label="Search" variant="outlined" className="search" type="text" placeholder='Search a todo' sx={textFieldStyle} value={search} onChange={(e)=>setSearch(e.target.value)}/>
     </div>
       <div className="todo_lists">
- {todosList?
+ {todosList.length>0?
   todosList?.filter((todo)=>todo.title.toLowerCase().includes(search)||todo.description.toLowerCase().includes(search)).map((todo,idx)=>
   (
  
@@ -97,7 +97,7 @@ getTodos();
 
   ))
 :
-<p>No Todos Found!</p>
+<p className='no_todos'>No Todos Found!</p>
 }
       </div>
     </div>

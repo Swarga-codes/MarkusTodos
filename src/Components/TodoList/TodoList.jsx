@@ -36,6 +36,7 @@ getTodos();
  },[todo.status])
   return (
     <div className='todos'>
+    <div className="todos_check">
     {!todo.status?
     <Checkbox {...label} value={todo.status || ''} onClick={()=>{
      updateStatus();
@@ -45,6 +46,8 @@ getTodos();
       updateStatus();
      }} defaultChecked/>
     }
+    </div>
+    <div className="todos_details">
     <h2>{todo.title}</h2>
     <p>{todo.description}</p>
     {!todo.status?
@@ -53,6 +56,7 @@ getTodos();
 <p className='complete'>Status: <b>Completed</b></p>
   }
     <button onClick={()=>deleteTodo(todo._id)} className='Delete'>Delete</button>
+    </div>
     </div>
   )
 }
