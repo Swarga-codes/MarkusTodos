@@ -6,9 +6,37 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function FormDialog({handleClose,open,todo}) {
-
+    const[title,setTitle]=React.useState(todo.title);
+    const[desc,setDesc]=React.useState(todo.description);
+const updateTodoData=async()=>{
+    if(title===todo.title && desc===todo.description){
+        return toast.warn('no change to update here!',{theme:'colored'})
+    }
+    const res=await fetch('http://localhost:8000/updatetodo',{
+        method:'PUT',
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':'Bearer '+localStorage.getItem("jwt")
+        },
+        body:JSON.stringify({
+            title:title,
+            description:desc,
+            idx:todo._id
+        })
+    });
+    const data=await res.json()
+    setTitle(todo.title)
+    setDesc(todo.desc)
+if(data.error){
+    return toast.error(data.error,{theme:'colored'})
+}
+else{
+    return toast.success(data.message,{theme:'colored'})
+}
+}
 
   return (
     <div>
@@ -19,26 +47,29 @@ export default function FormDialog({handleClose,open,todo}) {
             autoFocus
             margin="dense"
             id="name"
-            // label="Title"
             type="text"
-            value={todo.title}
+            value={title}
             fullWidth
             variant="standard"
+            onChange={(e)=>setTitle(e.target.value)}
           />
           <TextField
           autoFocus
           margin="dense"
           id="name"
-        //   label="Description"
           type="text"
-          value={todo.description}
+          value={desc}
           fullWidth
           variant="standard"
+          onChange={(e)=>setDesc(e.target.value)}
         />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Update Todo</Button>
+          <Button onClick={()=>{
+            updateTodoData()
+            handleClose()
+        }}>Update Todo</Button>
         </DialogActions>
       </Dialog>
     </div>
