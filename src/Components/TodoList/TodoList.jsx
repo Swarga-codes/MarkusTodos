@@ -62,7 +62,9 @@ getTodos();
     }
     </div>
     <div className="todos_details">
+    <div style={{display:'inline-block',width:'fit-content'}}>
     <h2>{todo.title}</h2>
+    </div>
     <p>{todo.description}</p>
     {!todo.status?
     <p className='pending'>Status: <b>Pending</b></p>

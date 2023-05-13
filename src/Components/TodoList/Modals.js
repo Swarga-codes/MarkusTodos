@@ -28,8 +28,6 @@ const updateTodoData=async()=>{
         })
     });
     const data=await res.json()
-    setTitle(todo.title)
-    setDesc(todo.desc)
 if(data.error){
     return toast.error(data.error,{theme:'colored'})
 }
