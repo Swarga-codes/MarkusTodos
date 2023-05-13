@@ -12,7 +12,7 @@ function Home() {
   const [desc, setDesc] = useState("");
   const [search, setSearch] = useState("");
   const [message, setMessage] = useState("");
-  const textFieldStyle = { width: "100%", marginTop: "1rem" };
+  const textFieldStyle = { width: "100%", marginTop: "0.8rem" };
   
   const AddTodo = async () => {
     const res = await fetch("http://localhost:8000/createTodo", {
@@ -50,6 +50,17 @@ function Home() {
       navigator("/login");
     }
   };
+  const searchData = (item)=>{
+    let data=item.filter(
+      (todo) =>
+        todo.title.toLowerCase().includes(search) ||
+        todo.description.toLowerCase().includes(search)
+    );
+    if(!data){
+    return <h1>Hello</h1>
+    }
+    return data;
+  }
   useEffect(() => {
     getTodos();
   }, [todosList]);
@@ -122,21 +133,21 @@ function Home() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
+     
       <div className="todo_lists">
+    
         {todosList.length > 0 ? (
-          todosList
-            ?.filter(
-              (todo) =>
-                todo.title.toLowerCase().includes(search) ||
-                todo.description.toLowerCase().includes(search)
-            )
-            .map((todo, idx) => (
+          searchData(todosList)
+            ?.map((todo, idx) => (
               <TodoList todo={todo} key={idx} getTodos={getTodos} />
             ))
         ) : (
-          <p className="no_todos">No Todos Found!</p>
+          
+        <p className="no_todos">No Todos Found!</p>
+    
         )}
       </div>
+        
       <ToastContainer />
     </div>
   );
