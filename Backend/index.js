@@ -7,7 +7,7 @@ const{mongoUrl}=require('./keys')
 const cors=require('cors')
 app.use(express.json())
 app.use(cors({
-    origin:'https://markus-todos-x8dl.vercel.app/',
+    origin:"*",
     methods:["POST","GET","PUT","DELETE"]
 }))
 mongoose.connect(mongoUrl);
