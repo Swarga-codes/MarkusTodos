@@ -4,10 +4,7 @@ const cors=require('cors')
 const mongoose=require('mongoose')
 const VerifyLogin = require('../middlewares/VerifyLogin')
 const TODOS=mongoose.model('TODOS')
-router.use(cors({
-    origin:'https://markus-todos-x8dl.vercel.app/',
-    methods:["POST","GET","PUT","DELETE"]
-}))
+router.use(cors())
 
 router.post('/createTodo',VerifyLogin,(req,res)=>{
     const{title,description,status}=req.body

@@ -7,10 +7,7 @@ const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken');
 const { SecretKey } = require('../keys');
 const validator=require('validator')
-router.use(cors({
-    origin:'https://markus-todos-x8dl.vercel.app/',
-    methods:["POST","GET","PUT","DELETE"]
-}))
+router.use(cors())
 router.get('/about',(req,res)=>{
     res.send("Hello I am about")
 })
