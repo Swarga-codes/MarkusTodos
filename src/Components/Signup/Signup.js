@@ -12,7 +12,7 @@ function SignUp() {
   const textFieldStyle = { width: "100%", marginTop: "1rem" };
     const fetchSignUp=async(e)=>{
         e.preventDefault();
-        const res=await fetch('http://localhost:8000/signup',{
+        const res=await fetch('https://markus-todos-backend.vercel.app/signup',{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"

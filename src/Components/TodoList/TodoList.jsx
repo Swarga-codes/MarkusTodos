@@ -16,7 +16,7 @@ function TodoList({todo,getTodos}) {
   };
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
    const deleteTodo=async(id)=>{
-    const res=await fetch(`http://localhost:8000/deletetodos/${id}`,
+    const res=await fetch(`https://markus-todos-backend.vercel.app/deletetodos/${id}`,
     {
       method:"DELETE",
       headers:{
@@ -30,7 +30,7 @@ function TodoList({todo,getTodos}) {
     
    }
    const updateStatus=async()=>{
-    const res=await fetch('http://localhost:8000/updatestatus',{
+    const res=await fetch('https://markus-todos-backend.vercel.app/updatestatus',{
       method:'PUT',
       headers:{
         "Content-Type":"application/json",
