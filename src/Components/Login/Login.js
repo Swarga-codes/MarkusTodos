@@ -20,7 +20,7 @@ function Login() {
         email,
         password,
       }),
-      mode:'no-cors',
+      // mode:'no-cors',
     });
     const data = await res.json();
     if (data.error) {
