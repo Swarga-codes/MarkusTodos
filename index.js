@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname,'./Frontend/build')))
 app.get('*',(req,res)=>{
     res.sendFile(path.join(__dirname,'./Frontend/build/index.html'),
     function(err){
-        res.status(500).send(err)
+        res.status(500).json(err)
     })
 })
 app.listen(8000||process.env.port,()=>{
