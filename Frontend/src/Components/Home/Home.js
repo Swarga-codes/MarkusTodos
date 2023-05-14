@@ -15,7 +15,7 @@ function Home() {
   const textFieldStyle = { width: "100%", marginTop: "0.8rem" };
   
   const AddTodo = async () => {
-    const res = await fetch("https://markus-todos-backend.vercel.app/createTodo", {
+    const res = await fetch("/createTodo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ function Home() {
     }
   };
   const getTodos = async () => {
-    const res = await fetch("https://markus-todos-backend.vercel.app/mytodos", {
+    const res = await fetch("/mytodos", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("jwt"),

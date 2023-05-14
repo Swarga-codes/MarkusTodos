@@ -15,7 +15,7 @@ const updateTodoData=async()=>{
     if(title===todo.title && desc===todo.description){
         return toast.warn('no change to update here!',{theme:'colored'})
     }
-    const res=await fetch('http://localhost:8000/updatetodo',{
+    const res=await fetch('/updatetodo',{
         method:'PUT',
         headers:{
             'Content-Type':'application/json',
