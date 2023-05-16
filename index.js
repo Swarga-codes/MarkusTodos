@@ -3,6 +3,7 @@ const app=express();
 const dotenv=require('dotenv')
 dotenv.config();
 const path=require('path')
+app.use(express.urlencoded({extended:true}))
 const mongoose=require('mongoose');
 const{mongoUrl}=require('./keys')
 const cors=require('cors')
