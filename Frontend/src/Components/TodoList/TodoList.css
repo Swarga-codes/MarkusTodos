@@ -32,6 +32,7 @@
 }
 .todos_details{
     margin-left: 1rem;
+    overflow-wrap: anywhere;
 }
 @media(max-width:991px){
 .todos{
